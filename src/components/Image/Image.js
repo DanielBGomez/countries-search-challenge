@@ -32,7 +32,7 @@ class Image extends Component {
 
     this.state = {
       loaded: false,
-      src // : lazy ? 'unset' : src
+      // src // : lazy ? 'unset' : src
     };
 
     // Lazy Observer

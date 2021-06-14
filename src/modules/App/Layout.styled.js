@@ -14,8 +14,6 @@ const { Paragraph } = fonts;
 // Configurations
 const LARGE_VP_CARDS = 3;
 const MEDIUM_VP_CARDS = 2;
-const SMALL_VP_CARDS = 1;
-const MOBILE_VP_CARDS = 1;
 const ONE_HUNDRED = 100;
 
 // Elements
@@ -23,7 +21,9 @@ const Header = Styled.header`
 `;
 
 const Title = Styled.h1`
+  cursor: pointer;
   font-weight: 900;
+  user-select: none;
   color: ${colors.main};
   font-size: ${spacing.xxl};
   margin-bottom: ${spacing.m};

@@ -33,7 +33,7 @@ const { CancelToken } = Axios;
 /**
  * App react component
  *
- * @version 0.1.0
+ * @version 1.0.0
  */
 class App extends Component {
   constructor(props) {
@@ -64,7 +64,7 @@ class App extends Component {
     // Ignore if fetching
     if (fetching) {
       // Abort if method is search
-      if (method === 'search') {
+      if (method === 'search' || method === 'countryData') {
         if (typeof this.abortSearch === 'function') {
           this.abortSearch();
         }
@@ -156,6 +156,7 @@ class App extends Component {
       search,
       autoComplete,
       results,
+      countryData,
       view
     } = this.state;
 
@@ -170,7 +171,19 @@ class App extends Component {
           {...this.state}
         >
           <Header>
-            <Title>Countries Search Challenge</Title>
+            <Title
+              onClick={() => this.setState({
+                search: '',
+                results: [],
+                countryData: {},
+                autoComplete: [],
+                fetching: false,
+                error: false,
+                view: 'homepage'
+              })}
+            >
+              Countries Search Challenge
+            </Title>
           </Header>
           <Paragraph
             id="page-description"
@@ -187,7 +200,7 @@ class App extends Component {
             fetchData={(method, search) => this.fetchData(method, search)}
             onChange={e => this.handleSearchInput(e)}
           />
-          {results.length ? (
+          {results.length && view !== 'countryData' ? (
             <>
               <Paragraph
                 id="results-count"
@@ -200,11 +213,21 @@ class App extends Component {
                     <CountryCard
                       key={country.alpha3Code}
                       {...country}
+                      onClick={() => this.setState({
+                          view: 'countryData',
+                          countryData: country
+                        })}
                     />
                   );
                 })}
               </ResultsWrapper>
             </>
+          ) : ''}
+          {view === 'countryData' ? (
+            <CountryCard
+              {...countryData}
+              style={{ marginRight: 0 }}
+            />
           ) : ''}
         </Wrapper>
         <Footer>
