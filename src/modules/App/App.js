@@ -22,9 +22,9 @@ import {
 } from './Layout.styled';
 
 // Configurations
-const API_AUTOCOMPLETE_URI = 'https://restcountries.eu/rest/v2/name/';
-const API_SEARCH_URI = 'https://restcountries.eu/rest/v2/name/';
-const API_COUNTRY_DATA_URI = 'https://restcountries.eu/rest/v2/alpha/'
+const API_AUTOCOMPLETE_URI = '/api/autocomplete/';
+const API_SEARCH_URI = '/api/search/';
+const API_COUNTRY_DATA_URI = '/api/countryData/'
 const MIN_SEARCH_LENGTH = 3;
 
 // Cancel Token
