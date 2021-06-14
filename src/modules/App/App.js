@@ -63,7 +63,7 @@ class App extends Component {
     const {
       fetching
     } = this.state;
-    
+
     // Ignore if fetching
     if (fetching || this.fetching) {
       // Abort if method is search
@@ -103,7 +103,7 @@ class App extends Component {
     }
 
     // Request
-    Axios.get(`${URL}${search}`, {
+    Axios.get(`${URL}${search.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}`, {
       cancelToken: new CancelToken(cancel => this.abortSearch = cancel)
     })
       // Store data
