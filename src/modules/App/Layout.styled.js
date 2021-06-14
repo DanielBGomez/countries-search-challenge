@@ -145,6 +145,7 @@ const ResultsWrapper = Styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
+  margin-bottom: ${spacing.xxxl};
 
   > * {
     width: calc(${ONE_HUNDRED / LARGE_VP_CARDS}% - ${spacing.number.m - spacing.number.m / LARGE_VP_CARDS}px);

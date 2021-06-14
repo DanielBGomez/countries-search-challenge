@@ -20,7 +20,7 @@ import {
 /**
  * Searchbox component
  *
- * @version 1.0.0
+ * @version 1.0.2
  * @author Daniel B Gomez <contact@danielbgomez.com>
  */
 class Searchbox extends Component {
@@ -58,17 +58,19 @@ class Searchbox extends Component {
     
     const parsedKey = `${key}`.toUpperCase();
 
+    // Submit if enter
+    if (parsedKey === 'ENTER') {
+      event.preventDefault();
+      return selectedCountry ? fetchData('countryData', selectedCountry) : fetchData('search', value); 
+    }
+
     // Ignore if not an autocomplete nav key or there is not any elements
-    if (!['ARROWDOWN', 'ARROWUP', 'TAB', 'ENTER'].includes(parsedKey) || !autoComplete.length) {
-      return true;
+    if (!['ARROWDOWN', 'ARROWUP', 'TAB'].includes(parsedKey) || !autoComplete.length) {
+      // Reset selectedCountry
+      return this.setState({ selectedCountry: false });
     }
 
     event.preventDefault();
-
-    // Submit if enter
-    if (parsedKey === 'ENTER') {
-      return selectedCountry ? fetchData('countryData', selectedCountry) : fetchData('search', value); 
-    }
 
     // Current index
     const DIRECTION = parsedKey === 'ARROWUP' ? -1 : 1;
@@ -108,6 +110,11 @@ class Searchbox extends Component {
     }
   }
 
+  blurInput(){
+    // This allows the onClick method to be fired before the onBlur event
+    setTimeout(() => this.setState({ focused: false }), 200);
+  }
+
   render() {
     const {
       value,
@@ -116,6 +123,7 @@ class Searchbox extends Component {
       fetchData
     } = this.props;
     const {
+      focused,
       selectedCountry
     } = this.state;
 
@@ -132,10 +140,10 @@ class Searchbox extends Component {
           ref={this.input}
           type="search"
           value={value}
-          onChange={onChange}
           onKeyDown={e => this.inputKeyDown(e)}
           onFocus={() => this.setState({ focused: true })}
-          onBlur={() => this.setState({ focused: false })}
+          onBlur={() => this.blurInput()}
+          onChange={onChange}
         />
         <Button
           onClick={() => fetchData('search', value)}
@@ -143,7 +151,7 @@ class Searchbox extends Component {
           <SearchIcon />
           Search
         </Button>
-        {autoComplete.length ? (
+        {autoComplete.length && focused ? (
           <AutoCompleteWrapper ref={this.autoComplete}>
             {autoComplete.map(country => {
               const {
@@ -157,6 +165,7 @@ class Searchbox extends Component {
                 <CountryWrapper
                   key={alpha3Code}
                   tabIndex={0}
+                  is-country
                   selected={selectedCountry === alpha3Code}
                   onClick={() => fetchData('countryData', alpha3Code)}
                 >

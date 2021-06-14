@@ -14,6 +14,7 @@ const BOX_SHADOW_OPACITY = 0.5;
 
 // Elements
 const Wrapper = Styled.div`
+  z-index: 2;
   width: 100%;
   height: 45px;
   display: flex;

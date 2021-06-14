@@ -63,10 +63,8 @@ class App extends Component {
     
     // Ignore if fetching
     if (fetching) {
-      // Abort if method is countryData
-      console.log(method);
-
-      if (method === 'countryData') {
+      // Abort if method is search
+      if (method === 'search') {
         if (typeof this.abortSearch === 'function') {
           this.abortSearch();
         }
@@ -77,9 +75,7 @@ class App extends Component {
 
     // Setup fetching state
     this.setState({
-      fetching: true,
-      autoComplete: [],
-      results: []
+      fetching: true
     });
 
     // URL
@@ -143,10 +139,11 @@ class App extends Component {
     }
 
     // Update state
-    this.setState({ view: 'searching', search, autoComplete: [] });
+    this.setState({ search, autoComplete: [] });
 
     // Autocomplete if the input length is greather than 3
     if (search.length >= MIN_SEARCH_LENGTH) {
+      this.setState({ view: 'searching' })
       this.fetchData('autocomplete', search);
     }
   }
