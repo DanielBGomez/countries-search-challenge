@@ -54,7 +54,6 @@ class CountryCard extends Component {
 
     // Computed values
     const AlternativeSpelling = altSpellings[altSpellings.length - 1];
-    const Language = languages[0];
     const Currency = currencies[0];
 
     return (

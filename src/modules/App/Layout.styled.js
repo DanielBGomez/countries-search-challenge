@@ -148,9 +148,22 @@ const ResultsWrapper = Styled.div`
   margin-bottom: ${spacing.xxxl};
 
   > * {
-    width: calc(${ONE_HUNDRED / LARGE_VP_CARDS}% - ${spacing.number.m - spacing.number.m / LARGE_VP_CARDS}px);
-
-    &:nth-of-type(${LARGE_VP_CARDS}n) {
+    @media (min-width: 901px) {
+      width: calc(${ONE_HUNDRED / LARGE_VP_CARDS}% - ${spacing.number.m - spacing.number.m / LARGE_VP_CARDS}px);
+  
+      &:nth-of-type(${LARGE_VP_CARDS}n) {
+        margin-right: ${spacing.noSpace};
+      }
+    }
+    @media (max-width: 900px) and (min-width: 601px) {
+      width: calc(${ONE_HUNDRED / MEDIUM_VP_CARDS}% - ${spacing.number.m - spacing.number.m / MEDIUM_VP_CARDS}px);
+  
+      &:nth-of-type(${MEDIUM_VP_CARDS}n) {
+        margin-right: ${spacing.noSpace};
+      }
+    }
+    @media (max-width: 600px) {
+      width: 100%;
       margin-right: ${spacing.noSpace};
     }
   }

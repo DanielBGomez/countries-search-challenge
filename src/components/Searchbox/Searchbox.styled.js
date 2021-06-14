@@ -31,9 +31,11 @@ const Wrapper = Styled.div`
 `;
 
 const Input = Styled.input`
+  width: 100%;
   border: none;
   flex-grow: 1;
   outline: none;
+  flex-shrink: 1;
   text-align: left;
   color: ${colors.black};
   font-size: ${fonts.normal};
