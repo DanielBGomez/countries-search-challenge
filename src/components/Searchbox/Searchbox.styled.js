@@ -73,7 +73,9 @@ const AutoCompleteWrapper = Styled.div`
   top: 100%;
   width: 100%;
   margin-top: 1px;
+  overflow-y: auto;
   position: absolute;
+  max-height: calc(100vh - 200px);
   background-color: ${colors.white};
   padding: ${spacing.xxs} ${spacing.noSpace};
   box-shadow: 0 3px 6px ${transparentize(BOX_SHADOW_OPACITY, colors.black)};
