@@ -12,9 +12,9 @@ import {
 const { Paragraph } = fonts;
 
 // Configurations
-const LARGE_VP_CARDS = 4;
-const MEDIUM_VP_CARDS = 3;
-const SMALL_VP_CARDS = 2;
+const LARGE_VP_CARDS = 3;
+const MEDIUM_VP_CARDS = 2;
+const SMALL_VP_CARDS = 1;
 const MOBILE_VP_CARDS = 1;
 const ONE_HUNDRED = 100;
 
@@ -150,7 +150,7 @@ const ResultsWrapper = Styled.div`
   > * {
     width: calc(${ONE_HUNDRED / LARGE_VP_CARDS}% - ${spacing.number.m - spacing.number.m / LARGE_VP_CARDS}px);
 
-    &:nth-of-type(4n) {
+    &:nth-of-type(${LARGE_VP_CARDS}n) {
       margin-right: ${spacing.noSpace};
     }
   }
