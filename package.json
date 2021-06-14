@@ -1,0 +1,66 @@
+{
+  "name": "countries-search-challenge",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint -c .eslintrc src/*.js src/**/*",
+    "build": "NODE_ENV=production simplifyify -m 'src/*.js' --outfile 'dist/js/*.min.js' --minify",
+    "compile": "simplifyify -m 'src/*.js' --outfile 'dist/js/*.min.js'"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.12.13",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-transform-runtime": "^7.14.3",
+    "@babel/preset-env": "^7.12.13",
+    "@babel/preset-react": "^7.12.13",
+    "@jsdevtools/simplifyify": "^8.0.4",
+    "@material-ui/icons": "^4.11.2",
+    "axios": "^0.21.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^10.0.0",
+    "color-scale": "^1.1.0",
+    "concurrently": "^6.2.0",
+    "envify": "^4.1.0",
+    "eslint": "^7.27.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.24.0",
+    "js-sha512": "^0.8.0",
+    "polished": "^4.1.3",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-redux": "^7.2.4",
+    "redux": "^4.1.0",
+    "styled-components": "^5.2.1",
+    "styled-normalize": "^8.0.7",
+    "terser": "^5.6.0-beta",
+    "uuid": "^8.3.2"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "@babel/preset-env",
+            "@babel/preset-react"
+          ],
+          "plugins": [
+            "@babel/plugin-proposal-class-properties",
+            [
+              "@babel/plugin-transform-runtime",
+              {
+                "regenerator": true
+              }
+            ]
+          ]
+        }
+      ]
+    ]
+  }
+}

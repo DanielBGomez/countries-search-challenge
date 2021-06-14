@@ -1,0 +1,167 @@
+// Modules
+import Styled, { css } from 'styled-components';
+
+// Theme
+import {
+  fonts,
+  colors,
+  spacing,
+  animations
+} from '../../theme';
+
+const { Paragraph } = fonts;
+
+// Configurations
+const LARGE_VP_CARDS = 4;
+const MEDIUM_VP_CARDS = 3;
+const SMALL_VP_CARDS = 2;
+const MOBILE_VP_CARDS = 1;
+const ONE_HUNDRED = 100;
+
+// Elements
+const Header = Styled.header`
+`;
+
+const Title = Styled.h1`
+  font-weight: 900;
+  color: ${colors.main};
+  font-size: ${spacing.xxl};
+  margin-bottom: ${spacing.m};
+`;
+
+const Footer = Styled.footer`
+  z-index: 1;
+  opacity: 0.6;
+  display: block;
+  position: relative;
+  color: ${colors.gray};
+  font-size: ${fonts.size.smaller};
+  transition: opacity 100ms linear;
+  margin: ${spacing.noSpace} auto ${spacing.m};
+
+  a {
+    color: inherit;
+
+    * {
+      margin-left: ${spacing.xxxs};
+      margin-bottom: -${spacing.xxxs};
+    }
+
+    &:focus,
+    &:hover {
+      color: ${colors.main};
+      text-decoration: none;
+    }
+  }
+
+  &:focus,
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+const Background = Styled.div`
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  position: fixed;
+  border-radius: 50%;
+  background-size: auto 100%;
+  background-repeat-y: no-repeat;
+  background-position: left center;
+  background-image: url('img/world.svg');
+  transform: translateX(-50%) translateY(-50%);
+  border: ${colors.white} ${spacing.xxxl} solid;
+  
+  ${css`
+    animation: ${animations.BackgroundScrollX} 1000s linear infinite;
+  `}
+
+  &:before {
+    content: '';
+    width: 100%;
+    display: block;
+    padding-top: 100%;
+  }
+`;
+
+const Wrapper = Styled.div`
+  z-index: 1;
+  width: 90%;
+  max-width: 1000px;
+  position: relative;
+  display
+  padding-top: ${spacing.xxl};
+  transition: all 100ms linear;
+  
+  #page-description {
+    max-width: 556px;
+    overflow: hidden;
+    transition: all 100ms linear;
+  }
+  #results-count {
+    margin-bottom: ${spacing.s};
+  }
+  #searchbox {
+    max-width: 520px;
+    margin: ${spacing.xl} auto ${spacing.l};
+  }
+
+  ${({ view }) => {
+    switch (view) {
+      case 'searching':
+      case 'countryData':
+        return `
+          margin-top: ${spacing.noSpace};
+          padding-top: ${spacing.noSpace};
+
+          ${Header} {
+            display: flex;
+            margin-top: ${spacing.xl};
+          }
+
+          #page-description {
+            margin; 0;
+            padding: 0;
+            max-height: 0;
+          }
+
+          ${Title} {
+            font-size: ${spacing.l};
+            margin: auto auto auto 0;
+          }
+
+          #searchbox {
+            max-width: 100%;
+          }
+        `;
+      default:
+        return '';
+    }
+  }}
+`;
+
+const ResultsWrapper = Styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+
+  > * {
+    width: calc(${ONE_HUNDRED / LARGE_VP_CARDS}% - ${spacing.number.m - spacing.number.m / LARGE_VP_CARDS}px);
+
+    &:nth-of-type(4n) {
+      margin-right: ${spacing.noSpace};
+    }
+  }
+`;
+
+// Exports
+export {
+  Background,
+  Wrapper,
+  Header,
+  Title,
+  Footer,
+  Paragraph,
+  ResultsWrapper
+};
