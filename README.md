@@ -2,7 +2,9 @@
 This repo contains all the code and project progress for a Full-Stack JS Developer Challenge that searchs any country by it's name or ISO 3166-1 2/3 letters country code, displaying the Flag, Languages, Currency, Region, Name and Population of any country!
 
 # Live Demo
-Visit the live demo of the app in [csc.706c656173652c2068656c70.me](csc.706c656173652c2068656c70.me).
+Visit the live demo of the app in:
+* [https://csc.706c656173652c2068656c70.me:3100](https://csc.706c656173652c2068656c70.me:3100)
+* [https://18.191.1.138:3100/](https://18.191.1.138:3100/)
 
 # Installation
 Clone the repo in any folder you want.
