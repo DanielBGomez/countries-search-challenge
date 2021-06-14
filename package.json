@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "dev": "nodemon index.js",
     "lint": "eslint -c .eslintrc src/*.js src/**/*",
     "build": "NODE_ENV=production simplifyify -m 'src/*.js' --outfile 'dist/js/*.min.js' --minify",
     "compile": "simplifyify -m 'src/*.js' --outfile 'dist/js/*.min.js'"
@@ -72,6 +73,7 @@
     "express": "^4.17.1",
     "helmet": "^4.6.0",
     "helmet-csp": "^3.4.0",
+    "nodemon": "^2.0.7",
     "redis": "^3.1.2"
   }
 }
