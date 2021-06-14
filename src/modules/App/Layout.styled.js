@@ -27,6 +27,10 @@ const Title = Styled.h1`
   color: ${colors.main};
   font-size: ${spacing.xxl};
   margin-bottom: ${spacing.m};
+
+  @media (max-width: 700px) {
+    font-size: ${spacing.xl};
+  }
 `;
 
 const Footer = Styled.footer`
@@ -83,6 +87,16 @@ const Background = Styled.div`
     display: block;
     padding-top: 100%;
   }
+
+  @media (max-width: 700px) {
+    width: 90%;
+    border-width: ${spacing.xxl};
+  }
+
+  @media (max-width: 500px) {
+    width: 140%;
+    border-width: ${spacing.xl};
+  }
 `;
 
 const Wrapper = Styled.div`
@@ -118,6 +132,15 @@ const Wrapper = Styled.div`
           ${Header} {
             display: flex;
             margin-top: ${spacing.xl};
+
+            @media (max-width: 500px) {
+              flex-direction: column;
+
+              * {
+                margin-left: auto !important;
+                margin-right: auto !important;
+              }
+            }
           }
 
           #page-description {
