@@ -33,7 +33,7 @@ const { CancelToken } = Axios;
 /**
  * App react component
  *
- * @version 1.0.0
+ * @version 1.1.0
  */
 class App extends Component {
   constructor(props) {
@@ -49,6 +49,9 @@ class App extends Component {
       error: false,
       view: 'homepage'
     };
+
+    // Reliable fetching var
+    this.fetching = false;
   }
 
   /**
@@ -56,13 +59,13 @@ class App extends Component {
    *
    * @param {'autocomplete'|'search'|'countryData'} method   Fetch method [] 
    */
-  fetchData(method, search) {
+  fetchData(method, search, name) {
     const {
       fetching
     } = this.state;
     
     // Ignore if fetching
-    if (fetching) {
+    if (fetching || this.fetching) {
       // Abort if method is search
       if (method === 'search' || method === 'countryData') {
         if (typeof this.abortSearch === 'function') {
@@ -74,6 +77,7 @@ class App extends Component {
     }
 
     // Setup fetching state
+    this.fetching = true;
     this.setState({
       fetching: true
     });
@@ -89,9 +93,13 @@ class App extends Component {
         break;
       case 'countryData':
         URL = API_COUNTRY_DATA_URI;
+        // Update display name (for the searchbox if a name was provided)
+        if (name) {
+          this.setState({ search: name });
+        }
         break;
       default:
-        return this.setState({ fetching: false, view: 'error' });
+        return this.setState({ fetching: false, view: 'error' }, () => this.fetching = false);
     }
 
     // Request
@@ -122,7 +130,7 @@ class App extends Component {
         }
       })
       // Remove fetching state
-      .finally(() => this.setState({ fetching: false }));
+      .finally(() => this.setState({ fetching: false }, () => this.fetching = false));
   }
 
   /**
@@ -138,14 +146,17 @@ class App extends Component {
       this.abortSearch();
     }
 
-    // Update state
-    this.setState({ search, autoComplete: [] });
+    // Wrapping the setState in the timeout helps to execute it after the abort
+    setTimeout(() => {
+      // Update state
+      this.setState({ search, autoComplete: [] }, () => {
+        // Autocomplete if the input length is greather than 3
+        if (search.length >= MIN_SEARCH_LENGTH) {
+          this.fetchData('autocomplete', search);
+        }
+      });
+    }, 0);
 
-    // Autocomplete if the input length is greather than 3
-    if (search.length >= MIN_SEARCH_LENGTH) {
-      this.setState({ view: 'searching' })
-      this.fetchData('autocomplete', search);
-    }
   }
 
   /**
@@ -157,7 +168,8 @@ class App extends Component {
       autoComplete,
       results,
       countryData,
-      view
+      view,
+      fetching
     } = this.state;
 
     return (
@@ -195,9 +207,10 @@ class App extends Component {
           </Paragraph>
           <Searchbox
             id="searchbox"
+            fetching={fetching}
             autoComplete={autoComplete}
             value={search}
-            fetchData={(method, search) => this.fetchData(method, search)}
+            fetchData={(method, search, name) => this.fetchData(method, search, name)}
             onChange={e => this.handleSearchInput(e)}
           />
           {results.length && view !== 'countryData' ? (

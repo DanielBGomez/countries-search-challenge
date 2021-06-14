@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 // Icons
 import SearchIcon from '@material-ui/icons/Search';
 
+// Components
+import { Loading } from '../Common.styled';
+
 // Elements
 import {
   Wrapper,
@@ -61,7 +64,9 @@ class Searchbox extends Component {
     // Submit if enter
     if (parsedKey === 'ENTER') {
       event.preventDefault();
-      return selectedCountry ? fetchData('countryData', selectedCountry) : fetchData('search', value); 
+      return selectedCountry
+        ? fetchData('countryData', selectedCountry, autoComplete.find(country => country.alpha3Code === selectedCountry)?.name)
+        : fetchData('search', value); 
     }
 
     // Ignore if not an autocomplete nav key or there is not any elements
@@ -120,7 +125,8 @@ class Searchbox extends Component {
       value,
       onChange,
       autoComplete,
-      fetchData
+      fetchData,
+      fetching,
     } = this.props;
     const {
       focused,
@@ -145,6 +151,15 @@ class Searchbox extends Component {
           onBlur={() => this.blurInput()}
           onChange={onChange}
         />
+        {fetching
+          ? <Loading
+              id="search-box-loading"
+              width="28px"
+              thickness="3px"
+              style={{ marginLeft: "12px" }}
+            />
+          : ''
+        }
         <Button
           onClick={() => fetchData('search', value)}
         >
@@ -167,7 +182,7 @@ class Searchbox extends Component {
                   tabIndex={0}
                   is-country
                   selected={selectedCountry === alpha3Code}
-                  onClick={() => fetchData('countryData', alpha3Code)}
+                  onClick={() => fetchData('countryData', alpha3Code, name)}
                 >
                   <CountryFlag>
                     <img src={flag} />
@@ -189,6 +204,7 @@ class Searchbox extends Component {
   }
 }
 Searchbox.propTypes = {
+  fetching: PropTypes.bool,
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
