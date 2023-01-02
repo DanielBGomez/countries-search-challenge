@@ -107,19 +107,19 @@ class App extends Component {
       cancelToken: new CancelToken(cancel => this.abortSearch = cancel)
     })
       // Store data
-      .then(data => {
+      .then(({ data }) => {
         switch (method) {
           case 'autocomplete':
           case 'search':
             return this.setState({
               view: 'searching',
-              [(method === 'autocomplete' ? 'autoComplete' : 'results')]: data.data
+              [(method === 'autocomplete' ? 'autoComplete' : 'results')]: data
             });
           case 'countryData':
             return this.setState({
               view: 'countryData',
-              countryData: data.data,
-              search: data.data.name
+              countryData: data,
+              search: data.name
             });
         }
       })
