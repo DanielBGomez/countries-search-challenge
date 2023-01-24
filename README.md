@@ -3,7 +3,7 @@ This repo contains all the code and project progress for a Full-Stack JS Develop
 
 # Live Demo
 Visit the live demo of the app in:
-* [https://csc.706c656173652c2068656c70.me:3100](https://csc.706c656173652c2068656c70.me:3100)
+* [https://danielbgomez.com](https://danielbgomez.com)
 
 # Installation
 Clone the repo in any folder you want.
